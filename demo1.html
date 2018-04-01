@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SeanWasEre Youtube - TeleportVR</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        button {
+            border-radius: 4px;
+            background-color: #F40 !important;
+            padding: 12px !important;
+        }
+    </style>
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/webvr.js"></script>
+    <script type="text/javascript" src="js/VRController.js"></script>
+    <script type="text/javascript" src="js/statsvr.min.js"></script>
+    <script type="text/javascript" src="js/teleportvr.js"></script>
+
+</head>
+
+<body>
+    <a href="https://github.com/Sean-Bradley">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+            alt="Fork me on GitHub">
+    </a>
+    <script>
+
+        WEBVR.checkAvailability().catch(function (message) {
+            document.body.appendChild(WEBVR.getMessageContainer(message))
+        })
+
+        //global variables
+        var camera, scene, renderer;
+        var teleportVR;
+        var cube1, cube2, cube3;
+
+        var statsVR;
+
+        var curveMesh;
+
+        var activeController;
+
+        function init() {
+            //THREE.VRController.verbosity = 8;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setClearColor(0x000000);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.vr.enabled = true;
+            document.body.appendChild(renderer.domElement);
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100)
+            scene = new THREE.Scene();
+
+            teleportVR = new TeleportVR(scene, camera);
+
+            statsVR = new StatsVR(scene, camera);
+            //statsVR.setX(0);
+            //statsVR.setY(0);
+            //statsVR.setZ(-2);
+
+            var targetMesh = new THREE.Mesh(
+                new THREE.CylinderGeometry(1, 1, .01, 8),
+                new THREE.MeshBasicMaterial({
+                    color: 0x88ff,
+                    wireframe: true
+                })
+            );
+            var targetDirectionIndicator = new THREE.Mesh(
+                new THREE.CubeGeometry(.1, .1, 2),
+                new THREE.MeshBasicMaterial({
+                    color: 0x88ff,
+                    wireframe: true
+                })
+            );
+            targetDirectionIndicator.translateZ(-1);
+            teleportVR.target.add(targetMesh);
+            teleportVR.target.add(targetDirectionIndicator);
+
+            teleportVR.target.visible = false;
+
+            //curvePath = teleportVR.curve;
+            var curveGeometry = new THREE.TubeBufferGeometry(teleportVR.curve, 9, .1, 3, false);
+            curveGeometry.dynamic = true;
+            curveMesh = new THREE.Mesh(curveGeometry, new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                wireframe: true
+            }));
+            curveMesh.visible = false;
+            //teleportVR.target.add(curveMesh);
+            scene.add(curveMesh);
+
+
+
+
+
+            WEBVR.getVRDisplay(function (display) {
+                renderer.vr.setDevice(display);
+                document.body.appendChild(WEBVR.getButton(display, renderer.domElement));
+            })
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            window.addEventListener('resize', onWindowResize, false);
+
+            var light = new THREE.AmbientLight(0x404040);
+            scene.add(light);
+
+            var wireframeFloor = new THREE.Mesh(
+                new THREE.PlaneBufferGeometry(20, 20, 10, 10),
+                new THREE.MeshBasicMaterial({
+                    color: 0x008800,
+                    wireframe: true
+                })
+            )
+            wireframeFloor.rotation.x = Math.PI / -2;
+            wireframeFloor.position.y = -0.001;
+            scene.add(wireframeFloor);
+
+            cube1 = new THREE.Mesh(
+                new THREE.CubeGeometry(1, 2, 1),
+                new THREE.MeshBasicMaterial({
+                    color: 0xff8800,
+                    wireframe: true
+                })
+            )
+            cube1.position.x = -10;
+            cube1.position.y = 1;
+            cube1.position.z = -10;
+            scene.add(cube1);
+            cube2 = new THREE.Mesh(
+                new THREE.CylinderGeometry(1, 2, 4, 8),
+                new THREE.MeshBasicMaterial({
+                    color: 0x88ff00,
+                    wireframe: true
+                })
+            )
+            cube2.position.x = 10;
+            cube2.position.y = 2;
+            cube2.position.z = -10;
+            scene.add(cube2);
+            cube3 = new THREE.Mesh(
+                new THREE.CubeGeometry(1, 4, 1),
+                new THREE.MeshBasicMaterial({
+                    color: 0x88ff00,
+                    wireframe: true
+                })
+            )
+            cube3.position.x = -10;
+            cube3.position.y = 2;
+            cube3.position.z = 10;
+            scene.add(cube3);
+
+
+
+        }
+        init();
+
+        window.addEventListener('vr controller connected', function (event) {
+            var controller = event.detail
+            teleportVR.add(controller)
+
+            controller.standingMatrix = renderer.vr.getStandingMatrix();
+
+            controller.head = window.camera;
+
+            var controllerMesh = new THREE.Object3D();
+            controllerMesh.add(new THREE.Mesh(
+                new THREE.CylinderGeometry(.05, 0.05, .4, 16, 1, true),
+                new THREE.MeshStandardMaterial({
+                    color: 0x00ff88,
+                    wireframe: true
+                })
+            ));
+
+            controllerMesh.rotation.x = -Math.PI / 2;
+            controller.userData.mesh = controllerMesh;
+            controller.userData.type = 3;//3 = gun
+            controller.add(controllerMesh);
+            controller.castShadow = true;
+            controller.receiveShadow = true;
+            controller.userData.teleportActive = false;
+
+
+            // controller.addEventListener('primary press began', function (event) {                
+            // })
+            // controller.addEventListener('primary press ended', function (event) {
+            // })
+            // controller.addEventListener('grip press began', function (event) {
+            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
+            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
+            // })
+            // controller.addEventListener('grip press ended', function (event) {
+            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
+            // })
+            // controller.addEventListener('A press began', function (event) {
+            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
+            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
+            // })
+            // controller.addEventListener('A press ended', function (event) {
+            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
+            // })
+            // controller.addEventListener('B press began', function (event) {
+            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
+            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
+            // })
+            // controller.addEventListener('B press ended', function (event) {
+            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
+            // })
+            controller.addEventListener('thumbstick touch began', function (event) {
+                teleportVR.target.rotation.y = 0;
+                controller.userData.teleportActive = true;
+                activeController = controller;
+                teleportVR.target.visible = true;
+                curveMesh.visible = true;
+            })
+            controller.addEventListener('thumbstick axes changed', function (event) {
+                var angleDeg = Math.atan2(-event.axes[0], -event.axes[1]);
+                teleportVR.target.rotation.y = angleDeg;
+            })
+            controller.addEventListener('thumbstick touch ended', function (event) {
+                teleportVR.teleport();                
+                curveMesh.visible = false;
+
+                teleportVR.target.visible = false;
+                controller.userData.teleportActive = false;
+            })
+
+            controller.addEventListener('disconnected', function (event) {
+                controller.parent.remove(controller)
+            })
+        })
+
+    
+
+        var dt = 1;
+        var lastTime = 0;
+
+        var HalfPI = Math.PI / 2;
+
+        function render(time) {
+            statsVR.msStart();
+            statsVR.update();
+
+
+            dt = time - lastTime;
+            lastTime = time;
+
+            THREE.VRController.update();
+
+            if (activeController && activeController.userData.teleportActive) {
+                var controllorVector = new THREE.Vector3(0, 0, -1);
+                controllorVector.applyQuaternion(activeController.quaternion);
+
+                var targetVector = new THREE.Vector3(controllorVector.x * 10, 0, controllorVector.z * 10);
+                teleportVR.update(activeController.userData.mesh, targetVector);
+
+
+                curveMesh.geometry.copy(new THREE.TubeBufferGeometry(teleportVR.curve, 9, .05, 3, false));
+                curveMesh.geometry.needsUpdate = true;
+            }
+           
+            statsVR.setCustom1("x:" + camera.position.x.toFixed(2));
+            statsVR.setCustom2("y:" + camera.position.y.toFixed(2));
+            statsVR.setCustom3("z:" + camera.position.z.toFixed(2));
+     
+
+
+            renderer.render(scene, camera);
+
+            statsVR.msEnd();
+
+
+        }
+        renderer.animate(render);
+
+    </script>
+</body>
+
+</html>
