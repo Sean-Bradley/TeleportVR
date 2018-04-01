@@ -1,11 +1,11 @@
 # TeleportVR
 Teleport module for WebVR, THREE.js and VRController.js projects
 
-![Example](https://sean-bradley.github.io/TeleportVR/img/demo.jpg)
+![Example](https://sean-bradley.github.io/TeleportVR/img/demo.gif)
 
 ## Demo
-https://github.com/Sean-Bradley/TeleportVR
+https://sean-bradley.github.io/TeleportVR/ 
 
 ## More Basic Demo
-https://github.com/Sean-Bradley/TeleportVR/demo1.html
+https://sean-bradley.github.io/TeleportVR/demo1.html 
 
