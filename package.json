@@ -2,7 +2,7 @@
   "name": "teleportvr",
   "version": "1.0.1",
   "description": "Teleport module for WebVR, THREE.js and VRController.js projects",
-  "main": "js/teleportvr.min.js",
+  "main": "teleportvr.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
