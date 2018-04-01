@@ -23,34 +23,35 @@
         _group.add(_target);
 
         var _curve = new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(-1, 0, -2),
-            new THREE.Vector3(0, 3, 0),
-            new THREE.Vector3(1, 0, -2)
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(1, 3, -1),
+            new THREE.Vector3(2, 0, -2)
         );
+
+        var maxDistance = 20;
 
         return {
             add: function (o) {
                 _group.add(o);
             },
-            //position: _group.position,
-            //quaternion: _group.quaternion,
             target: _target,
             curve: _curve,
             teleport: function (o) {
                 _target.getWorldPosition(_group.position);
                 _target.getWorldQuaternion(_group.quaternion);
             },
-            update: function (o, v) {
-                _target.position.copy(v);
-                _target.getWorldPosition(_curve.v0);//end point                
-                o.getWorldPosition(_curve.v2);//startpoint                
-                var midPoint = new THREE.Object3D();//midpoint
-                o.getWorldPosition(midPoint.position);
-                o.getWorldQuaternion(midPoint.quaternion);
-                midPoint.translateY(3);
-                _curve.v1 = midPoint.position;
-
-                //_curve.v2.copy(_target.worldToLocal(o.getWorldPosition()));
+            update: function (o) {
+                var v = new THREE.Vector3(0, 0, -1);
+                v.applyQuaternion(o.quaternion);
+                _target.position.set(v.x * maxDistance, 0, v.z * maxDistance);
+                _curve.v0.copy(_target.position);
+                _curve.v2.copy(o.position);
+                _curve.v2.add(new THREE.Vector3().setFromMatrixPosition(o.standingMatrix));
+                var midPoint = new THREE.Object3D();
+                midPoint.position.copy(_curve.v2);
+                midPoint.quaternion.copy(o.quaternion);
+                midPoint.translateZ(-3);
+                _curve.v1.copy(midPoint.position);
             }
         }
     })
