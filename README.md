@@ -5,7 +5,7 @@ Teleport module for WebVR, THREE.js and VRController.js projects
 
 Requires latest firefox, Oculus Rift, 2 Touch Controllers and Rift Core 2.0 Beta disabed.
 
-## GitHib page
+## GitHub page
 https://github.com/Sean-Bradley/TeleportVR
 
 ## Demo Usage
