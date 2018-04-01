@@ -1,0 +1,26 @@
+{
+  "name": "teleportvr",
+  "version": "1.0.1",
+  "description": "Teleport module for WebVR, THREE.js and VRController.js projects",
+  "main": "js/teleportvr.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sean-Bradley/TeleportVR.git"
+  },
+  "keywords": [
+    "teleport",
+    "three.js",
+    "webvr",
+    "vrcontroller.js",
+    "seanwasere"
+  ],
+  "author": "Sean Bradley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sean-Bradley/TeleportVR/issues"
+  },
+  "homepage": "https://github.com/Sean-Bradley/TeleportVR#readme"
+}
