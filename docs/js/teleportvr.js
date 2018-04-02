@@ -28,7 +28,7 @@
             new THREE.Vector3(2, 0, -2)
         );
 
-        var maxDistance = 20;
+        var _maxDistance = 10;
 
         return {
             add: function (o) {
@@ -36,6 +36,9 @@
             },
             target: _target,
             curve: _curve,
+            setMaxDistance: function (val) {
+                _maxDistance = val
+            },
             teleport: function (o) {
                 _target.getWorldPosition(_group.position);
                 _target.getWorldQuaternion(_group.quaternion);
@@ -43,7 +46,7 @@
             update: function (o) {
                 var v = new THREE.Vector3(0, 0, -1);
                 v.applyQuaternion(o.quaternion);
-                _target.position.set(v.x * maxDistance, 0, v.z * maxDistance);
+                _target.position.set(v.x * _maxDistance, 0, v.z * _maxDistance);
                 _curve.v0.copy(_target.position);
                 _curve.v2.copy(o.position);
                 _curve.v2.add(new THREE.Vector3().setFromMatrixPosition(o.standingMatrix));
