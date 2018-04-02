@@ -1,6 +1,6 @@
 {
   "name": "teleportvr",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Teleport module for WebVR, THREE.js and VRController.js projects",
   "main": "teleportvr.min.js",
   "scripts": {
