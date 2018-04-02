@@ -21,7 +21,7 @@ https://sean-bradley.github.io/TeleportVR/demo1.html
 https://sean-bradley.github.io/TeleportVR/demo1.html 
 
 
-## Demo3 - Texturing the telporter target and curve with shaders
+## Demo3 - Texturing the TeleportVR target and curve with shaders
 ![Demo 3](https://sean-bradley.github.io/TeleportVR/img/demo3.gif)
 
 https://sean-bradley.github.io/TeleportVR/demo1.html 
