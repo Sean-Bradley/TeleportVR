@@ -18,11 +18,11 @@ https://sean-bradley.github.io/TeleportVR/demo1.html
 ## Demo2 - Extra functions such as laser guns, explosions and haptic feedback
 ![Demo 2](https://sean-bradley.github.io/TeleportVR/img/demo2.gif)
 
-https://sean-bradley.github.io/TeleportVR/demo1.html 
+https://sean-bradley.github.io/TeleportVR/demo2.html 
 
 
 ## Demo3 - Texturing the TeleportVR target and curve with shaders
 ![Demo 3](https://sean-bradley.github.io/TeleportVR/img/demo3.gif)
 
-https://sean-bradley.github.io/TeleportVR/demo1.html 
+https://sean-bradley.github.io/TeleportVR/demo3.html 
 
