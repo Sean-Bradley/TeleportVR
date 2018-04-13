@@ -24,6 +24,7 @@ Download teleportvr.min.js, save it, and include reference to script in your htm
 
 ### Create global variables
 ```
+
 var camera, scene, renderer;  // these are commonly used THREE.js variables and may already exist in your project
 var teleportVR; // create your global teleportVR variable. I named mine teleportVR
 
@@ -86,7 +87,7 @@ renderer.animate(render);
 
 ### Change TeleportVR mesh and material,
 For example see Demo 3 https://sean-bradley.github.io/TeleportVR/demo3.html
-
+Don't forget to call ``teleportVR.removeTargetHelpers();`` so that the default target wireframe doesn't also appear along with your customised target objects. See demo 3 and demo 4.
 
 ## All TeleportVR demos 
 https://sean-bradley.github.io/TeleportVR/ 
