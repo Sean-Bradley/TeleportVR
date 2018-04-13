@@ -45,11 +45,8 @@
         var cube1, cube2, cube3;
 
         var teleportVR;
-        var curveMesh;
 
         var statsVR;
-
-        var activeController;
 
         function init() {
             //THREE.VRController.verbosity = 8;
@@ -65,40 +62,9 @@
             scene = new THREE.Scene();
 
             teleportVR = new TeleportVR(scene, camera);
+            //teleportVR.setMaxDistance(50);
 
             statsVR = new StatsVR(scene, camera);
-            //statsVR.setX(0);
-            //statsVR.setY(0);
-            //statsVR.setZ(-2);
-
-            var targetMesh = new THREE.Mesh(
-                new THREE.CylinderGeometry(1, 1, .01, 8),
-                new THREE.MeshBasicMaterial({
-                    color: 0x88ff,
-                    wireframe: true
-                })
-            );
-            var targetDirectionIndicator = new THREE.Mesh(
-                new THREE.CubeGeometry(.1, .1, 2),
-                new THREE.MeshBasicMaterial({
-                    color: 0x88ff,
-                    wireframe: true
-                })
-            );
-            targetDirectionIndicator.translateZ(-1);
-            teleportVR.target.add(targetMesh);
-            teleportVR.target.add(targetDirectionIndicator);
-            teleportVR.target.visible = false;
-
-            var curveGeometry = new THREE.TubeBufferGeometry(teleportVR.curve, 9, .1, 3, false);
-            curveMesh = new THREE.Mesh(curveGeometry, new THREE.MeshBasicMaterial({
-                color: 0xff0000,
-                wireframe: true
-            }));
-            curveMesh.visible = false;
-            teleportVR.add(curveMesh);
-
-
 
             WEBVR.getVRDisplay(function (display) {
                 renderer.vr.setDevice(display);
@@ -163,12 +129,13 @@
         }
         init();
 
+        //common VRController.js event code
         window.addEventListener('vr controller connected', function (event) {
             var controller = event.detail
-            teleportVR.add(controller)
+            //scene.add(controller);
+            teleportVR.add(controller);
 
             controller.standingMatrix = renderer.vr.getStandingMatrix();
-
             controller.head = window.camera;
 
             var controllerMesh = new THREE.Object3D();
@@ -183,40 +150,9 @@
             controllerMesh.rotation.x = -Math.PI / 2;
             controller.userData.mesh = controllerMesh;
             controller.add(controllerMesh);
-            controller.teleportActive = false;
-
-
-            // controller.addEventListener('primary press began', function (event) {                
-            // })
-            // controller.addEventListener('primary press ended', function (event) {
-            // })
-            // controller.addEventListener('grip press began', function (event) {
-            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-            // })
-            // controller.addEventListener('grip press ended', function (event) {
-            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-            // })
-            // controller.addEventListener('A press began', function (event) {
-            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-            // })
-            // controller.addEventListener('A press ended', function (event) {
-            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-            // })
-            // controller.addEventListener('B press began', function (event) {
-            // 	this.gamepad.hapticActuators[0].pulse(0.3, 100);
-            // 	event.target.userData.mesh.material.color.setHex(0xF4C20D)
-            // })
-            // controller.addEventListener('B press ended', function (event) {
-            // 	event.target.userData.mesh.material.color.setHex(0xDB3236)
-            // })
+  
             controller.addEventListener('thumbstick touch began', function (event) {
-                teleportVR.target.rotation.y = 0;
-                controller.teleportActive = true;
-                activeController = controller;
-                teleportVR.target.visible = true;
-                curveMesh.visible = true;
+                teleportVR.show(controller);
             })
             controller.addEventListener('thumbstick axes changed', function (event) {
                 if (Math.abs(event.axes[0]) > 0.01 && Math.abs(event.axes[1]) > 0.01) {
@@ -226,10 +162,6 @@
             })
             controller.addEventListener('thumbstick touch ended', function (event) {
                 teleportVR.teleport();
-                curveMesh.visible = false;
-
-                teleportVR.target.visible = false;
-                controller.teleportActive = false;
             })
 
             controller.addEventListener('disconnected', function (event) {
@@ -254,12 +186,7 @@
 
             THREE.VRController.update();
 
-            if (activeController && activeController.teleportActive) {
-                teleportVR.update(activeController);
-
-                curveMesh.geometry.copy(new THREE.TubeBufferGeometry(teleportVR.curve, 9, .05, 3, false));
-                curveMesh.geometry.needsUpdate = true;
-            }
+            teleportVR.update();
 
             statsVR.setCustom1("x:" + camera.position.x.toFixed(2));
             statsVR.setCustom2("y:" + camera.position.y.toFixed(2));
