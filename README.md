@@ -3,7 +3,7 @@ Teleport module for WebVR, THREE.js and VRController.js projects
 
 Requires latest Firefox, Oculus Rift CV1, 2 Touch Controllers and Rift Core 2.0 Beta disabled in Oculus settings.
 
-## Video Tutorial of using StatsVR
+## Video Tutorial of using TeleportVR
 [![TeleportVR Tutorial for WebVR and ThreeJS projects](https://img.youtube.com/vi/-qHfxqhlk_0/0.jpg)](https://www.youtube.com/watch?v=-qHfxqhlk_0)
 
 
