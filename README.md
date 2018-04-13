@@ -12,7 +12,8 @@ https://github.com/Sean-Bradley/TeleportVR
 
 
 ## How to Use
-The TeleportVR module depends on the three.js and VRController.js libraries, and is useful in VR scenarios where you have an Oculus Rift and Touch Controllers, or Vive and it's controllers. I have not tested yet with vive controllers, but please leave a comment if they work or not and i will try to debug. The best example code to start with is in Demo 1 https://sean-bradley.github.io/TeleportVR/demo1.html
+The TeleportVR module depends on the three.js and VRController.js libraries, and is useful in VR scenarios where you have an Oculus Rift and Touch Controllers, or Vive and it's controllers. I have not tested yet with vive controllers, but please leave a comment if they work or not and i will try to debug. 
+The best example code to start with is in Demo 1 https://sean-bradley.github.io/TeleportVR/demo1.html
 
 
 
