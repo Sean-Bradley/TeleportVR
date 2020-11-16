@@ -13,11 +13,12 @@
     "url": "git+https://github.com/Sean-Bradley/TeleportVR.git"
   },
   "keywords": [
-    "teleport",
+    "teleportvr",
     "threejs",
     "webvr",
     "webxr",
-    "seanwasere"
+    "seanwasere",
+    "statsvr"
   ],
   "author": "Sean Bradley",
   "license": "MIT",
