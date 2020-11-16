@@ -172,15 +172,6 @@ controllerGrip1.addEventListener('selectstart', () => {
     setTimeout(() => { controllerGrip1.children[0].translateY(-.15) }, 100)
 })
 
-// controller0.addEventListener('selectstart', () => { statsVR.setCustom1("selectstart") });
-// controller0.addEventListener('selectend', () => { statsVR.setCustom1("selectend") });
-// controller0.addEventListener('squeeze', () => { statsVR.setCustom1("squeeze") });
-// controller0.addEventListener('squeezestart', () => { statsVR.setCustom1("squeezestart") });
-// controller0.addEventListener('squeezeend', () => { statsVR.setCustom1("squeezeend") });
-// controller0.addEventListener('end', () => { statsVR.setCustom1("end") });
-//teleportVR.add(controller0)
-
-
 const statsVR = new StatsVR(camera)
 statsVR.setX(0)
 statsVR.setY(0)
