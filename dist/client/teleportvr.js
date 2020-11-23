@@ -12,6 +12,7 @@ export default class TeleportVR {
         this._activeController = new THREE.Object3D();
         this._activeControllerKey = "";
         this._controllers = {};
+        this._enabled = {};
         this._gamePads = {};
         this._raycaster = new THREE.Raycaster();
         this._group.add(camera);
@@ -47,13 +48,33 @@ export default class TeleportVR {
         this._group.add(model);
         this._controllers[id] = model;
         this._gamePads[id] = gamePad;
-        console.log("gamepads length = " + Object.keys(this._gamePads).length);
+        this._enabled[id] = true;
+        //console.log("gamepads length = " + Object.keys(this._gamePads).length)
     }
-    gamePads(id) {
-        return this._gamePads[id];
+    get enabled() {
+        return this._enabled;
     }
-    target() { return this._target; }
-    curve() { return this._curve; }
+    set enabled(value) {
+        this._enabled = value;
+    }
+    get gamePads() {
+        return this._gamePads;
+    }
+    set gamePads(value) {
+        this._gamePads = value;
+    }
+    get target() {
+        return this._target;
+    }
+    set target(value) {
+        this._target = value;
+    }
+    get curve() {
+        return this._curve;
+    }
+    set curve(value) {
+        this._curve = value;
+    }
     useDefaultTargetHelper(use) {
         this._target.getObjectByName("helperTarget").visible = use;
     }
@@ -73,25 +94,27 @@ export default class TeleportVR {
     update(elevationsMeshList) {
         if (Object.keys(this._gamePads).length > 0) {
             for (let key in Object.keys(this._gamePads)) {
-                const gp = this._gamePads[key];
-                if (gp.buttons[3].touched) {
-                    //console.log("hapticActuators = " + gp.hapticActuators)
-                    //console.log(gp.axes[0] + " " + gp.axes[1] + " " + gp.axes[2] + " " + gp.axes[3])
-                    this._activeController = this._controllers[key];
-                    this._activeControllerKey = key;
-                    this._visible = true;
-                    if (Math.abs(gp.axes[2]) + Math.abs(gp.axes[3]) > 0.25) {
-                        this._target.rotation.y = Math.atan2(-gp.axes[2], -gp.axes[3]); //angle degrees
+                if (this._enabled[key]) {
+                    const gp = this._gamePads[key];
+                    if (gp.buttons[3].touched) {
+                        //console.log("hapticActuators = " + gp.hapticActuators)
+                        //console.log(gp.axes[0] + " " + gp.axes[1] + " " + gp.axes[2] + " " + gp.axes[3])
+                        this._activeController = this._controllers[key];
+                        this._activeControllerKey = key;
+                        this._visible = true;
+                        if (Math.abs(gp.axes[2]) + Math.abs(gp.axes[3]) > 0.25) {
+                            this._target.rotation.y = Math.atan2(-gp.axes[2], -gp.axes[3]); //angle degrees
+                        }
+                        this._target.visible = true;
+                        this._curve.visible = true;
+                        break;
                     }
-                    this._target.visible = true;
-                    this._curve.visible = true;
-                    break;
-                }
-                else {
-                    if (this._activeControllerKey === key) {
-                        this._activeControllerKey = "";
-                        this.teleport();
-                        this._target.rotation.y = 0;
+                    else {
+                        if (this._activeControllerKey === key) {
+                            this._activeControllerKey = "";
+                            this.teleport();
+                            this._target.rotation.y = 0;
+                        }
                     }
                 }
             }

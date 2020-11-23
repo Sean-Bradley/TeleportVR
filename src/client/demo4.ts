@@ -141,8 +141,8 @@ controllerGrip1.addEventListener("connected", (e: any) => {
 })
 
 controllerGrip0.addEventListener('selectstart', () => {
-    if (teleportVR.gamePads(0).hapticActuators && teleportVR.gamePads(0).hapticActuators.length > 0) {
-        teleportVR.gamePads(0).hapticActuators[0].pulse(1.0, 5)
+    if (teleportVR.gamePads[0].hapticActuators && teleportVR.gamePads[0].hapticActuators.length > 0) {
+        teleportVR.gamePads[0].hapticActuators[0].pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip0.getWorldPosition(bullets[bulletCounter].position)
@@ -159,8 +159,8 @@ controllerGrip0.addEventListener('selectstart', () => {
 })
 
 controllerGrip1.addEventListener('selectstart', () => {
-    if (teleportVR.gamePads(1).hapticActuators && teleportVR.gamePads(1).hapticActuators.length > 0) {
-        teleportVR.gamePads(1).hapticActuators[1].pulse(1.0, 5)
+    if (teleportVR.gamePads[1].hapticActuators && teleportVR.gamePads[1].hapticActuators.length > 0) {
+        teleportVR.gamePads[1].hapticActuators[1].pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip1.getWorldPosition(bullets[bulletCounter].position)
@@ -194,7 +194,7 @@ var targetMesh = new THREE.Mesh(
     })
 );
 targetMesh.geometry.scale(1, .2, 1)
-teleportVR.target().add(targetMesh)
+teleportVR.target.add(targetMesh)
 teleportVR.useDefaultTargetHelper(false)
 
 //custom TeleportVR Direction object
@@ -208,7 +208,7 @@ var targetDirectionIndicatorL = new THREE.Mesh(
 targetDirectionIndicatorL.translateZ(-1.5);
 targetDirectionIndicatorL.translateX(-.11);
 targetDirectionIndicatorL.rotateY(Math.PI / -4);
-teleportVR.target().add(targetDirectionIndicatorL);
+teleportVR.target.add(targetDirectionIndicatorL);
 
 var targetDirectionIndicatorR = new THREE.Mesh(
     new THREE.BoxBufferGeometry(.2, .01, .5),
@@ -220,7 +220,7 @@ var targetDirectionIndicatorR = new THREE.Mesh(
 targetDirectionIndicatorR.translateZ(-1.5);
 targetDirectionIndicatorR.translateX(.11);
 targetDirectionIndicatorR.rotateY(Math.PI / 4);
-teleportVR.target().add(targetDirectionIndicatorR);
+teleportVR.target.add(targetDirectionIndicatorR);
 
 teleportVR.useDefaultDirectionHelper(false)
 
@@ -231,7 +231,7 @@ const curveMaterial = new THREE.ShaderMaterial({
     fragmentShader: (document.getElementById('fragmentShader') as HTMLElement).textContent as string,
     transparent: true
 });
-teleportVR.curve().material = curveMaterial;
+teleportVR.curve.material = curveMaterial;
 
 
 const statsVR = new StatsVR(camera)

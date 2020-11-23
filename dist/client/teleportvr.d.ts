@@ -8,14 +8,28 @@ export default class TeleportVR {
     private _activeController;
     private _activeControllerKey;
     private _controllers;
+    private _enabled;
     private _gamePads;
     private _raycaster;
     private _vectorArray;
     constructor(scene: THREE.Scene, camera: THREE.Camera);
     add(id: number, model: THREE.Object3D, gamePad: Gamepad): void;
-    gamePads(id: number): Gamepad;
-    target(): THREE.Group;
-    curve(): THREE.Mesh<THREE.Geometry | THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
+    get enabled(): {
+        [id: number]: boolean;
+    };
+    set enabled(value: {
+        [id: number]: boolean;
+    });
+    get gamePads(): {
+        [id: number]: Gamepad;
+    };
+    set gamePads(value: {
+        [id: number]: Gamepad;
+    });
+    get target(): THREE.Group;
+    set target(value: THREE.Group);
+    get curve(): THREE.Mesh<THREE.Geometry | THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
+    set curve(value: THREE.Mesh<THREE.Geometry | THREE.BufferGeometry, THREE.Material | THREE.Material[]>);
     useDefaultTargetHelper(use: boolean): void;
     useDefaultDirectionHelper(use: boolean): void;
     setMaxDistance(val: number): void;

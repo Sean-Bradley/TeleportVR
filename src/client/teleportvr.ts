@@ -7,14 +7,15 @@ import * as THREE from '/build/three.module.js'
 export default class TeleportVR {
 
     private _group = new THREE.Group()
-    private _target = new THREE.Group()
-    private _curve = new THREE.Mesh()
+    private _target = new THREE.Group()   
+    private _curve = new THREE.Mesh()  
     private _maxDistance = 10
     private _visible = false
     private _activeController = new THREE.Object3D()
     private _activeControllerKey = ""
     private _controllers: { [id: number]: THREE.Object3D } = {}
-    private _gamePads: { [id: number]: Gamepad } = {}
+    private _enabled: { [id: number]: boolean } = {}
+    private _gamePads: { [id: number]: Gamepad}  = {}    
     private _raycaster = new THREE.Raycaster()
     private _vectorArray: THREE.QuadraticBezierCurve3
 
@@ -70,16 +71,37 @@ export default class TeleportVR {
         this._group.add(model)
         this._controllers[id] = model
         this._gamePads[id] = gamePad
-        console.log("gamepads length = " + Object.keys(this._gamePads).length)
+        this._enabled[id] = true
+        //console.log("gamepads length = " + Object.keys(this._gamePads).length)
     }
 
-    public gamePads(id: number) {
-        return this._gamePads[id]
+    public get enabled(): { [id: number]: boolean } {
+        return this._enabled
+    }
+    public set enabled(value: { [id: number]: boolean }) {
+        this._enabled = value
     }
 
-    public target() { return this._target }
+    public get gamePads(): { [id: number]: Gamepad}  {
+        return this._gamePads
+    }
+    public set gamePads(value: { [id: number]: Gamepad} ) {
+        this._gamePads = value
+    }
 
-    public curve() { return this._curve }
+    public get target() {
+        return this._target
+    }
+    public set target(value) {
+        this._target = value
+    }
+
+    public get curve() {
+        return this._curve
+    }
+    public set curve(value) {
+        this._curve = value
+    }
 
     public useDefaultTargetHelper(use: boolean) {
         (this._target.getObjectByName("helperTarget") as THREE.Mesh).visible = use
@@ -104,24 +126,26 @@ export default class TeleportVR {
 
         if (Object.keys(this._gamePads).length > 0) {
             for (let key in Object.keys(this._gamePads)) {
-                const gp = this._gamePads[key]
-                if (gp.buttons[3].touched) {
-                    //console.log("hapticActuators = " + gp.hapticActuators)
-                    //console.log(gp.axes[0] + " " + gp.axes[1] + " " + gp.axes[2] + " " + gp.axes[3])
-                    this._activeController = this._controllers[key]
-                    this._activeControllerKey = key
-                    this._visible = true
-                    if (Math.abs(gp.axes[2]) + Math.abs(gp.axes[3]) > 0.25) {
-                        this._target.rotation.y = Math.atan2(-gp.axes[2], -gp.axes[3]); //angle degrees
-                    }
-                    this._target.visible = true
-                    this._curve.visible = true
-                    break;
-                } else {
-                    if (this._activeControllerKey === key) {
-                        this._activeControllerKey = ""
-                        this.teleport()
-                        this._target.rotation.y = 0
+                if (this._enabled[key]) {
+                    const gp = this._gamePads[key]
+                    if (gp.buttons[3].touched) {
+                        //console.log("hapticActuators = " + gp.hapticActuators)
+                        //console.log(gp.axes[0] + " " + gp.axes[1] + " " + gp.axes[2] + " " + gp.axes[3])
+                        this._activeController = this._controllers[key]
+                        this._activeControllerKey = key
+                        this._visible = true
+                        if (Math.abs(gp.axes[2]) + Math.abs(gp.axes[3]) > 0.25) {
+                            this._target.rotation.y = Math.atan2(-gp.axes[2], -gp.axes[3]); //angle degrees
+                        }
+                        this._target.visible = true
+                        this._curve.visible = true
+                        break;
+                    } else {
+                        if (this._activeControllerKey === key) {
+                            this._activeControllerKey = ""
+                            this.teleport()
+                            this._target.rotation.y = 0
+                        }
                     }
                 }
             }

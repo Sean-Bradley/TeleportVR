@@ -1,6 +1,6 @@
 {
   "name": "teleportvr",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Teleport module for WebXR THREE.js projects",
   "main": "./dist/client/teleportvr.js",
   "scripts": {
