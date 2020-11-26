@@ -101,7 +101,7 @@ controllerGrip1.addEventListener("connected", (e: any) => {
     teleportVR.add(1, controllerGrip1, e.data.gamepad)
 })
 
-const statsVR = new StatsVR(camera)
+const statsVR = new StatsVR(scene, camera)
 statsVR.setX(0)
 statsVR.setY(0)
 statsVR.setZ(-2)

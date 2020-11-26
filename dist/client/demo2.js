@@ -127,7 +127,7 @@ controllerGrip1.addEventListener('selectstart', () => {
     controllerGrip1.children[0].translateY(.15);
     setTimeout(() => { controllerGrip1.children[0].translateY(-.15); }, 100);
 });
-const statsVR = new StatsVR(camera);
+const statsVR = new StatsVR(scene, camera);
 statsVR.setX(0);
 statsVR.setY(0);
 statsVR.setZ(-2);
