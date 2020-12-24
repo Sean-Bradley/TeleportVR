@@ -29,20 +29,24 @@ import TeleportVR from './teleportvr.js'
 
 or if using a bundler such as webpack or rollup
 
+```javascript
+import TeleportVR from 'teleportvr'
+```
+
 > Note
 If using a bundler, you will need to update the **import** reference in your copy of `buttonvr.js`. By default it is set to ```import * as THREE from '/build/three.module.js'```. Try setting it to ```import * as THREE from 'three'```
 
 ## How to Instantiate And Use
 
-After creating your `THREE.Scene` and `THREE.Camera`, create a new TeleportVR object.
+After creating your `THREE.Scene` and `THREE.Camera`, create a new **TeleportVR** object.
 
 ```javascript
 const teleportVR = new TeleportVR(scene, camera);
 ```
 
-Create geometries fro the hands and add controller grips, see example code for examples.
+Create geometries for the hands and add controller grips, see example code for more info.
 
-Update in your render loop
+Update **TeleportVR** in your render loop
 
 ```javascript
 teleportVR.update();
