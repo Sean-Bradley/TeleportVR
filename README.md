@@ -86,3 +86,14 @@ This is a typescript project consisting of two sub projects with there own *tsco
 To edit this example, then modify the files in `./src/client/` or `./src/server/`
 
 The projects will auto recompile if you started it by using *npm run dev*
+
+## Threejs TypeScript Course
+
+Visit https://github.com/Sean-Bradley/Three.js-TypeScript-Boilerplate for a Threejs TypeScript boilerplate containing many extra branches that demonstrate many examples of Threejs.
+
+> To help support this Threejs example, please take a moment to look at my official Threejs TypeScript course at 
+
+[![Threejs TypeScript Course](threejs-course-image.png)](https://www.udemy.com/course/threejs-tutorials/?referralCode=4C7E1DE91C3E42F69D0F)
+
+  [Three.js and TypeScript](https://www.udemy.com/course/threejs-tutorials/?referralCode=4C7E1DE91C3E42F69D0F)<br/>  
+  Discount Coupons for all my courses can be found at [https://sbcode.net/coupons](https://sbcode.net/coupons)
