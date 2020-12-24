@@ -3,6 +3,7 @@
 //https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
 
 import * as THREE from '/build/three.module.js'
+//import * as THREE from 'three'  //if using a bundler
 
 export default class TeleportVR {
 
