@@ -32,27 +32,43 @@ or if using a bundler such as webpack or rollup
 > Note
 If using a bundler, you will need to update the **import** reference in your copy of `buttonvr.js`. By default it is set to ```import * as THREE from '/build/three.module.js'```. Try setting it to ```import * as THREE from 'three'```
 
-## See Examples For How to Instantiate And Use
+## How to Instantiate And Use
 
-### Example 1
+After creating your `THREE.Scene` and `THREE.Camera`, create a new TeleportVR object.
+
+```javascript
+const teleportVR = new TeleportVR(scene, camera);
+```
+
+Create geometries fro the hands and add controller grips, see example code for examples.
+
+Update in your render loop
+
+```javascript
+teleportVR.update();
+renderer.render(scene, camera)
+```
+
+
+## Example 1
 
 Basic TeleportVR setup for WebVR and Threejs projects.
 
 [![TeleportVR Example 1](./dist/client/img/teleportvr-1.gif)](https://sbcode.net/threejs/teleportvr-1/)
 
-### Example 2
+## Example 2
 
 Shoot at objects in the scene.
 
 [![TeleportVR Example 2](./dist/client/img/teleportvr-2.gif)](https://sbcode.net/threejs/teleportvr-2/)
 
-### Example 3
+## Example 3
 
 Teleport on top of objects in the scene.
 
 [![TeleportVR Example 3](./dist/client/img/teleportvr-3.gif)](https://sbcode.net/threejs/teleportvr-3/)
 
-### Example 4
+## Example 4
 
 Customising the TeleportVR default meshes.
 
