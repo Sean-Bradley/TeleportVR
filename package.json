@@ -1,6 +1,6 @@
 {
   "name": "teleportvr",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Teleport module for WebXR THREE.js projects",
   "main": "./dist/client/teleportvr.js",
   "scripts": {
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "statsvr": "^2.2.0",
+    "statsvr": "^2.2.1",
     "three": "^0.125.2",
     "typescript": "^4.0.3"
   }
