@@ -3,7 +3,6 @@
 //https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
 
 import * as THREE from '/build/three.module.js'
-//import * as THREE from 'three'  //if using a bundler
 
 export default class TeleportVR {
 
@@ -34,7 +33,7 @@ export default class TeleportVR {
         );
 
         const _mesh = new THREE.Mesh(
-            new THREE.CylinderGeometry(1, 1, .01, 8),
+            new THREE.CylinderBufferGeometry(1, 1, .01, 8),
             new THREE.MeshBasicMaterial({
                 color: 0x0044ff,
                 wireframe: true
@@ -176,7 +175,7 @@ export default class TeleportVR {
             this._vectorArray.v1.copy(midPoint.position);
 
             const t = new THREE.TubeBufferGeometry(this._vectorArray, 9, .1, 5, false) as THREE.BufferGeometry
-            this._curve.geometry.copy(t as THREE.Geometry & THREE.BufferGeometry);
+            (this._curve.geometry as THREE.BufferGeometry).copy(t);
         }
     }
 }

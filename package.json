@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "statsvr": "^2.1.1",
-    "three": "^0.122.0",
+    "statsvr": "^2.2.0",
+    "three": "^0.125.2",
     "typescript": "^4.0.3"
   }
 }

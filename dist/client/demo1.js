@@ -26,7 +26,7 @@ cube1.position.x = -10;
 cube1.position.y = 1;
 cube1.position.z = -10;
 scene.add(cube1);
-const cube2 = new THREE.Mesh(new THREE.CylinderGeometry(1, 2, 4, 8), new THREE.MeshBasicMaterial({
+const cube2 = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 2, 4, 8), new THREE.MeshBasicMaterial({
     color: 0x88ff00,
     wireframe: true
 }));
@@ -49,7 +49,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 const teleportVR = new TeleportVR(scene, camera);
-const lefthand = new THREE.Mesh(new THREE.CylinderGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
+const lefthand = new THREE.Mesh(new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
     color: 0x00ff88,
     wireframe: true
 }));
@@ -58,7 +58,7 @@ controllerGrip0.addEventListener("connected", (e) => {
     controllerGrip0.add(lefthand);
     teleportVR.add(0, controllerGrip0, e.data.gamepad);
 });
-const righthand = new THREE.Mesh(new THREE.CylinderGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
+const righthand = new THREE.Mesh(new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
     color: 0x00ff88,
     wireframe: true
 }));

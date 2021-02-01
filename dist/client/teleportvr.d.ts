@@ -28,8 +28,8 @@ export default class TeleportVR {
     });
     get target(): THREE.Group;
     set target(value: THREE.Group);
-    get curve(): THREE.Mesh<THREE.Geometry | THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
-    set curve(value: THREE.Mesh<THREE.Geometry | THREE.BufferGeometry, THREE.Material | THREE.Material[]>);
+    get curve(): THREE.Mesh;
+    set curve(value: THREE.Mesh);
     useDefaultTargetHelper(use: boolean): void;
     useDefaultDirectionHelper(use: boolean): void;
     setMaxDistance(val: number): void;

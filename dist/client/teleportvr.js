@@ -19,7 +19,7 @@ export default class TeleportVR {
         scene.add(this._group);
         this._group.add(this._target);
         this._vectorArray = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 3, -1), new THREE.Vector3(2, 0, -2));
-        const _mesh = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, .01, 8), new THREE.MeshBasicMaterial({
+        const _mesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, .01, 8), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
             wireframe: true
         }));

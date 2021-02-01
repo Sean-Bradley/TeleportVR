@@ -42,7 +42,7 @@ cube1.position.z = -10;
 scene.add(cube1);
 collidableMeshList.push(cube1);
 elevationsMeshList.push(cube1);
-const cube2 = new THREE.Mesh(new THREE.CylinderGeometry(1, 2, 4, 8), new THREE.MeshBasicMaterial({
+const cube2 = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 2, 4, 8), new THREE.MeshBasicMaterial({
     color: 0x88ff00,
     wireframe: true
 }));
@@ -63,7 +63,7 @@ scene.add(cube3);
 collidableMeshList.push(cube3);
 elevationsMeshList.push(cube3);
 for (let i = 0; i < maxBullets; i++) {
-    const b = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, 1, 5), new THREE.MeshBasicMaterial({
+    const b = new THREE.Mesh(new THREE.CylinderBufferGeometry(.025, .025, 1, 5), new THREE.MeshBasicMaterial({
         color: 0xff0000,
         wireframe: true
     }));
@@ -81,7 +81,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 const teleportVR = new TeleportVR(scene, camera);
-const lefthand = new THREE.Mesh(new THREE.CylinderGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
+const lefthand = new THREE.Mesh(new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
     color: 0x00ff88,
     wireframe: true
 }));
@@ -90,7 +90,7 @@ controllerGrip0.addEventListener("connected", (e) => {
     controllerGrip0.add(lefthand);
     teleportVR.add(0, controllerGrip0, e.data.gamepad);
 });
-const righthand = new THREE.Mesh(new THREE.CylinderGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
+const righthand = new THREE.Mesh(new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true), new THREE.MeshBasicMaterial({
     color: 0x00ff88,
     wireframe: true
 }));
@@ -192,8 +192,9 @@ function render() {
                 if (b.userData.lifeTime > .025) {
                     let collisionDetected = false;
                     let collisionPoint = new THREE.Vector3();
-                    for (let v = 0; v < b.geometry.vertices.length; v++) {
-                        const localVertex = b.geometry.vertices[v].clone();
+                    const positions = b.geometry.attributes.position.array;
+                    for (let i = 0; i < positions.length; i += 3) {
+                        const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]);
                         const globalVertex = localVertex.applyMatrix4(b.matrixWorld);
                         const bulletPosition = new THREE.Vector3();
                         b.getWorldPosition(bulletPosition);
