@@ -1,10 +1,11 @@
 {
   "name": "teleportvr",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Teleport module for WebXR THREE.js projects",
   "main": "./dist/client/teleportvr.js",
   "scripts": {
-    "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./dist/server/server.js\"",
+    "build": "tsc --outDir ./dist/client --target ES6 --module ES6 --declaration true ./src/client/teleportvr.ts && webpack --config ./src/client/webpack.prod.js",
+    "dev": "webpack serve --config ./src/client/webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server/server.js"
   },
@@ -24,15 +25,21 @@
   "license": "MIT",
   "homepage": "https://github.com/Sean-Bradley/TeleportVR#readme",
   "devDependencies": {
-    "@types/express": "^4.17.9",
+    "@types/express": "^4.17.7",
     "@types/node": "^13.13.15",
-    "concurrently": "^5.3.0",
-    "nodemon": "^2.0.4"
+    "@types/three": "^0.128.0",
+    "html-webpack-plugin": "^5.3.1",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.2.4",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "statsvr": "^2.2.1",
-    "three": "^0.125.2",
-    "typescript": "^4.0.3"
+    "statsvr": "^3.1.0",
+    "three": "^0.128.0"
   }
 }

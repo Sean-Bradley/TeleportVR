@@ -1,7 +1,7 @@
-import * as THREE from '/build/three.module.js'
-import StatsVR from '/statsvr'
-import { VRButton } from '/jsm/webxr/VRButton'
-import TeleportVR from './teleportvr.js'
+import * as THREE from 'three'
+import StatsVR from 'statsvr'
+import { VRButton } from 'three/examples/jsm/webxr/VRButton'
+import TeleportVR from './teleportvr'
 
 const scene: THREE.Scene = new THREE.Scene()
 

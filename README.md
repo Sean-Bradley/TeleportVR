@@ -15,26 +15,15 @@ Visit http://127.0.0.1:3000/
 
 ## How to import TeleportVR
 
-You can copy the generated `./dist/client/teleportvr.js` directly into your own project folder and import as a module.
-
-```html
-<script type="module" src="./teleportvr.js"></script>
+```bash
+npm install teleportvr
 ```
 
-or as relative ES6 import
+Import it into your code
 
 ```javascript
-import TeleportVR from './teleportvr.js'
+import TeleportVR from "teleportvr";
 ```
-
-or if using a bundler such as webpack or rollup
-
-```javascript
-import TeleportVR from 'teleportvr'
-```
-
-> Note
-If using a bundler, you will need to update the **import** reference in your copy of `buttonvr.js`. By default it is set to ```import * as THREE from '/build/three.module.js'```. Try setting it to ```import * as THREE from 'three'```
 
 ## How to Instantiate And Use
 
@@ -50,9 +39,8 @@ Update **TeleportVR** in your render loop
 
 ```javascript
 teleportVR.update();
-renderer.render(scene, camera)
+renderer.render(scene, camera);
 ```
-
 
 ## Example 1
 
@@ -78,22 +66,21 @@ Customising the TeleportVR default meshes.
 
 [![TeleportVR Example 4](./dist/client/img/teleportvr-4.gif)](https://sbcode.net/threejs/teleportvr-4/)
 
-
 ## TeleportVR Source Project
 
-This is a typescript project consisting of two sub projects with there own *tsconfigs*.
+This is a typescript project consisting of two sub projects with there own _tsconfigs_.
 
 To edit this example, then modify the files in `./src/client/` or `./src/server/`
 
-The projects will auto recompile if you started it by using *npm run dev*
+The projects will auto recompile if you started it by using _npm run dev_
 
 ## Threejs TypeScript Course
 
 Visit https://github.com/Sean-Bradley/Three.js-TypeScript-Boilerplate for a Threejs TypeScript boilerplate containing many extra branches that demonstrate many examples of Threejs.
 
-> To help support this Threejs example, please take a moment to look at my official Threejs TypeScript course at 
+> To help support this Threejs example, please take a moment to look at my official Threejs TypeScript course at
 
 [![Threejs TypeScript Course](threejs-course-image.png)](https://www.udemy.com/course/threejs-tutorials/?referralCode=4C7E1DE91C3E42F69D0F)
 
-  [Three.js and TypeScript](https://www.udemy.com/course/threejs-tutorials/?referralCode=4C7E1DE91C3E42F69D0F)<br/>  
-  Discount Coupons for all my courses can be found at [https://sbcode.net/coupons](https://sbcode.net/coupons)
+[Three.js and TypeScript](https://www.udemy.com/course/threejs-tutorials/?referralCode=4C7E1DE91C3E42F69D0F)<br/>  
+ Discount Coupons for all my courses can be found at [https://sbcode.net/coupons](https://sbcode.net/coupons)

@@ -1,7 +1,10 @@
-//MIT License
-//Copyright (c) 2020 Sean Bradley
-//https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
-import * as THREE from '/build/three.module.js';
+/**
+ * @license
+ * TeleportVR library and demos
+ * Copyright 2018-2021 Sean Bradley https://sbcode.net
+ * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
+ */
+import * as THREE from "three";
 export default class TeleportVR {
     constructor(scene, camera) {
         this._group = new THREE.Group();
@@ -19,24 +22,24 @@ export default class TeleportVR {
         scene.add(this._group);
         this._group.add(this._target);
         this._vectorArray = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 3, -1), new THREE.Vector3(2, 0, -2));
-        const _mesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, .01, 8), new THREE.MeshBasicMaterial({
+        const _mesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, 0.01, 8), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
-            wireframe: true
+            wireframe: true,
         }));
         _mesh.name = "helperTarget";
         this._target.add(_mesh);
-        const _mesh2 = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, 2), new THREE.MeshBasicMaterial({
+        const _mesh2 = new THREE.Mesh(new THREE.BoxBufferGeometry(0.1, 0.1, 2), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
-            wireframe: true
+            wireframe: true,
         }));
         _mesh2.translateZ(-1);
         _mesh2.name = "helperDirection";
         this._target.add(_mesh2);
         this._target.visible = false;
-        const _geometry = new THREE.TubeBufferGeometry(this._vectorArray, 9, .1, 5, false);
+        const _geometry = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false);
         this._curve = new THREE.Mesh(_geometry, new THREE.MeshBasicMaterial({
             color: 0xff0000,
-            wireframe: true
+            wireframe: true,
         }));
         this._curve.visible = false;
         this._group.add(this._curve);
@@ -79,7 +82,8 @@ export default class TeleportVR {
         this._target.getObjectByName("helperTarget").visible = use;
     }
     useDefaultDirectionHelper(use) {
-        this._target.getObjectByName("helperDirection").visible = use;
+        this._target.getObjectByName("helperDirection").visible =
+            use;
     }
     setMaxDistance(val) {
         this._maxDistance = val;
@@ -128,7 +132,8 @@ export default class TeleportVR {
                 this._raycaster.ray.origin.y += 10;
                 var intersects = this._raycaster.intersectObjects(elevationsMeshList);
                 if (intersects.length > 0) {
-                    this._target.position.y = intersects[0].point.y - this._group.position.y;
+                    this._target.position.y =
+                        intersects[0].point.y - this._group.position.y;
                 }
             }
             this._vectorArray.v0.copy(this._target.position);
@@ -138,7 +143,7 @@ export default class TeleportVR {
             midPoint.quaternion.copy(this._activeController.quaternion);
             midPoint.translateY(-3);
             this._vectorArray.v1.copy(midPoint.position);
-            const t = new THREE.TubeBufferGeometry(this._vectorArray, 9, .1, 5, false);
+            const t = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false);
             this._curve.geometry.copy(t);
         }
     }

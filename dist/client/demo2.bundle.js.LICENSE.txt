@@ -1,0 +1,12 @@
+/**
+ * @license
+ * Copyright 2010-2021 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */
+
+/**
+ * @license
+ * TeleportVR library and demos
+ * Copyright 2018-2021 Sean Bradley https://sbcode.net
+ * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
+ */

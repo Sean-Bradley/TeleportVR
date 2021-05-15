@@ -1,8 +1,8 @@
-import * as THREE from '/build/three.module.js'
-import StatsVR from '/statsvr'
-import { VRButton } from '/jsm/webxr/VRButton'
-import TeleportVR from './teleportvr.js'
-import Explosion from './explosion.js'
+import * as THREE from 'three'
+import StatsVR from 'statsvr'
+import { VRButton } from 'three/examples/jsm/webxr/VRButton'
+import TeleportVR from './teleportvr'
+import Explosion from './explosion'
 
 const bullets: THREE.Mesh[] = []
 let bulletCounter = 0

@@ -1,4 +1,10 @@
-import * as THREE from '/build/three.module.js';
+/**
+ * @license
+ * TeleportVR library and demos
+ * Copyright 2018-2021 Sean Bradley https://sbcode.net
+ * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
+ */
+import * as THREE from "three";
 export default class TeleportVR {
     private _group;
     private _target;
@@ -28,8 +34,8 @@ export default class TeleportVR {
     });
     get target(): THREE.Group;
     set target(value: THREE.Group);
-    get curve(): THREE.Mesh;
-    set curve(value: THREE.Mesh);
+    get curve(): THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
+    set curve(value: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>);
     useDefaultTargetHelper(use: boolean): void;
     useDefaultDirectionHelper(use: boolean): void;
     setMaxDistance(val: number): void;
