@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Visit http://127.0.0.1:3000/
+Visit https://127.0.0.1:3000/
 
 ## How to import TeleportVR
 

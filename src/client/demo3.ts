@@ -15,12 +15,16 @@ const scene: THREE.Scene = new THREE.Scene()
 const explosions = [
     new Explosion(new THREE.Color(0xff0000), scene),
     new Explosion(new THREE.Color(0x00ff00), scene),
-    new Explosion(new THREE.Color(0x0000ff), scene)
+    new Explosion(new THREE.Color(0x0000ff), scene),
 ]
 let explosionCounter = 0
 
-
-const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
+const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
+    50,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+)
 camera.position.set(0, 1.6, 3)
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -36,65 +40,65 @@ const floor = new THREE.Mesh(
     new THREE.PlaneBufferGeometry(20, 20, 10, 10),
     new THREE.MeshBasicMaterial({
         color: 0x008800,
-        wireframe: true
+        wireframe: true,
     })
 )
 floor.rotation.x = Math.PI / -2
 floor.position.y = -0.001
 scene.add(floor)
-collidableMeshList.push(floor);
-elevationsMeshList.push(floor);
+collidableMeshList.push(floor)
+elevationsMeshList.push(floor)
 
 const cube1 = new THREE.Mesh(
     new THREE.BoxBufferGeometry(1, 2, 1),
     new THREE.MeshBasicMaterial({
         color: 0xff8800,
-        wireframe: true
+        wireframe: true,
     })
 )
 cube1.position.x = -10
 cube1.position.y = 1
 cube1.position.z = -10
-scene.add(cube1);
-collidableMeshList.push(cube1);
-elevationsMeshList.push(cube1);
+scene.add(cube1)
+collidableMeshList.push(cube1)
+elevationsMeshList.push(cube1)
 
 const cube2 = new THREE.Mesh(
     new THREE.CylinderBufferGeometry(1, 2, 4, 8),
     new THREE.MeshBasicMaterial({
         color: 0x88ff00,
-        wireframe: true
+        wireframe: true,
     })
 )
 cube2.position.x = 10
 cube2.position.y = 2
 cube2.position.z = -10
-scene.add(cube2);
-collidableMeshList.push(cube2);
-elevationsMeshList.push(cube2);
+scene.add(cube2)
+collidableMeshList.push(cube2)
+elevationsMeshList.push(cube2)
 
 const cube3 = new THREE.Mesh(
     new THREE.BoxBufferGeometry(1, 4, 1),
     new THREE.MeshBasicMaterial({
         color: 0x88ff00,
-        wireframe: true
+        wireframe: true,
     })
 )
 cube3.position.x = -10
 cube3.position.y = 2
 cube3.position.z = 10
 scene.add(cube3)
-collidableMeshList.push(cube3);
-elevationsMeshList.push(cube3);
+collidableMeshList.push(cube3)
+elevationsMeshList.push(cube3)
 
 for (let i = 0; i < maxBullets; i++) {
     const b = new THREE.Mesh(
-        new THREE.CylinderBufferGeometry(.025, .025, 1, 5),
+        new THREE.CylinderBufferGeometry(0.025, 0.025, 1, 5),
         new THREE.MeshBasicMaterial({
             color: 0xff0000,
-            wireframe: true
+            wireframe: true,
         })
-    );
+    )
     b.rotation.z = Math.PI / -2
     b.userData.lifeTime = 0
     bullets.push(b)
@@ -111,38 +115,41 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-const teleportVR = new TeleportVR(scene, camera);
+const teleportVR = new TeleportVR(scene, camera)
 
 const lefthand = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true),
+    new THREE.CylinderBufferGeometry(0.05, 0.05, 0.4, 16, 1, true),
     new THREE.MeshBasicMaterial({
         color: 0x00ff88,
-        wireframe: true
+        wireframe: true,
     })
 )
 
 const controllerGrip0 = renderer.xr.getControllerGrip(0)
-controllerGrip0.addEventListener("connected", (e: any) => {
+controllerGrip0.addEventListener('connected', (e: any) => {
     controllerGrip0.add(lefthand)
     teleportVR.add(0, controllerGrip0, e.data.gamepad)
 })
 
 const righthand = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(.05, 0.05, .4, 16, 1, true),
+    new THREE.CylinderBufferGeometry(0.05, 0.05, 0.4, 16, 1, true),
     new THREE.MeshBasicMaterial({
         color: 0x00ff88,
-        wireframe: true
+        wireframe: true,
     })
 )
 const controllerGrip1 = renderer.xr.getControllerGrip(1)
-controllerGrip1.addEventListener("connected", (e: any) => {
+controllerGrip1.addEventListener('connected', (e: any) => {
     controllerGrip1.add(righthand)
     teleportVR.add(1, controllerGrip1, e.data.gamepad)
 })
 
 controllerGrip0.addEventListener('selectstart', () => {
-    if (teleportVR.gamePads[0].hapticActuators && teleportVR.gamePads[0].hapticActuators.length > 0) {
-        teleportVR.gamePads[0].hapticActuators[0].pulse(1.0, 5)
+    if (
+        teleportVR.gamePads[0].hapticActuators &&
+        teleportVR.gamePads[0].hapticActuators.length > 0
+    ) {
+        ;(teleportVR.gamePads[0].hapticActuators[0] as any).pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip0.getWorldPosition(bullets[bulletCounter].position)
@@ -154,13 +161,18 @@ controllerGrip0.addEventListener('selectstart', () => {
         bulletCounter = 0
     }
 
-    controllerGrip0.children[0].translateY(.15)
-    setTimeout(() => { controllerGrip0.children[0].translateY(-.15) }, 100)
+    controllerGrip0.children[0].translateY(0.15)
+    setTimeout(() => {
+        controllerGrip0.children[0].translateY(-0.15)
+    }, 100)
 })
 
 controllerGrip1.addEventListener('selectstart', () => {
-    if (teleportVR.gamePads[1].hapticActuators && teleportVR.gamePads[1].hapticActuators.length > 0) {
-        teleportVR.gamePads[1].hapticActuators[1].pulse(1.0, 5)
+    if (
+        teleportVR.gamePads[1].hapticActuators &&
+        teleportVR.gamePads[1].hapticActuators.length > 0
+    ) {
+        ;(teleportVR.gamePads[1].hapticActuators[1] as any).pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip1.getWorldPosition(bullets[bulletCounter].position)
@@ -172,8 +184,10 @@ controllerGrip1.addEventListener('selectstart', () => {
         bulletCounter = 0
     }
 
-    controllerGrip1.children[0].translateY(.15)
-    setTimeout(() => { controllerGrip1.children[0].translateY(-.15) }, 100)
+    controllerGrip1.children[0].translateY(0.15)
+    setTimeout(() => {
+        controllerGrip1.children[0].translateY(-0.15)
+    }, 100)
 })
 
 const statsVR = new StatsVR(scene, camera)
@@ -184,33 +198,43 @@ statsVR.setZ(-2)
 const clock: THREE.Clock = new THREE.Clock()
 
 function render() {
-
     statsVR.update()
 
-    teleportVR.update(elevationsMeshList);
+    teleportVR.update(elevationsMeshList)
 
     const delta = clock.getDelta()
 
-    bullets.forEach(b => {
+    bullets.forEach((b) => {
         if (b.visible) {
             b.userData.lifeTime += delta
             if (b.userData.lifeTime < 5) {
                 b.translateY(-delta * 50)
-                if (b.userData.lifeTime > .025) {
+                if (b.userData.lifeTime > 0.025) {
                     let collisionDetected = false
                     let collisionPoint = new THREE.Vector3()
-                    const positions = (b.geometry as THREE.BufferGeometry).attributes.position.array as Array<number>
+                    const positions = (b.geometry as THREE.BufferGeometry).attributes.position
+                        .array as Array<number>
                     for (let i = 0; i < positions.length; i += 3) {
-                        const localVertex = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2])
+                        const localVertex = new THREE.Vector3(
+                            positions[i],
+                            positions[i + 1],
+                            positions[i + 2]
+                        )
                         const globalVertex = localVertex.applyMatrix4(b.matrixWorld)
                         const bulletPosition = new THREE.Vector3()
                         b.getWorldPosition(bulletPosition)
                         const directionVector = globalVertex.sub(bulletPosition)
 
-                        const ray = new THREE.Raycaster(bulletPosition, directionVector.clone().normalize())
+                        const ray = new THREE.Raycaster(
+                            bulletPosition,
+                            directionVector.clone().normalize()
+                        )
                         const collisionResults = ray.intersectObjects(collidableMeshList)
 
-                        if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+                        if (
+                            collisionResults.length > 0 &&
+                            collisionResults[0].distance < directionVector.length()
+                        ) {
                             collisionDetected = true
                             b.visible = false
                             collisionPoint = collisionResults[0].point
@@ -219,9 +243,9 @@ function render() {
                     }
                     if (collisionDetected) {
                         explosions[explosionCounter].explode(collisionPoint)
-                        explosionCounter++;
+                        explosionCounter++
                         if (explosionCounter >= explosions.length) {
-                            explosionCounter = 0;
+                            explosionCounter = 0
                         }
                     }
                 }
