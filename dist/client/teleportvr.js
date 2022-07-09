@@ -4,7 +4,7 @@
  * Copyright 2018-2021 Sean Bradley https://sbcode.net
  * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
  */
-import * as THREE from "three";
+import * as THREE from 'three';
 export default class TeleportVR {
     constructor(scene, camera) {
         this._group = new THREE.Group();
@@ -13,7 +13,7 @@ export default class TeleportVR {
         this._maxDistance = 10;
         this._visible = false;
         this._activeController = new THREE.Object3D();
-        this._activeControllerKey = "";
+        this._activeControllerKey = '';
         this._controllers = {};
         this._enabled = {};
         this._gamePads = {};
@@ -26,14 +26,14 @@ export default class TeleportVR {
             color: 0x0044ff,
             wireframe: true,
         }));
-        _mesh.name = "helperTarget";
+        _mesh.name = 'helperTarget';
         this._target.add(_mesh);
         const _mesh2 = new THREE.Mesh(new THREE.BoxBufferGeometry(0.1, 0.1, 2), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
             wireframe: true,
         }));
         _mesh2.translateZ(-1);
-        _mesh2.name = "helperDirection";
+        _mesh2.name = 'helperDirection';
         this._target.add(_mesh2);
         this._target.visible = false;
         const _geometry = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false);
@@ -47,7 +47,7 @@ export default class TeleportVR {
         this._raycaster.ray.direction.copy(direction);
     }
     add(id, model, gamePad) {
-        model.name = "teleportVRController_" + id.toString();
+        model.name = 'teleportVRController_' + id.toString();
         this._group.add(model);
         this._controllers[id] = model;
         this._gamePads[id] = gamePad;
@@ -79,11 +79,12 @@ export default class TeleportVR {
         this._curve = value;
     }
     useDefaultTargetHelper(use) {
-        this._target.getObjectByName("helperTarget").visible = use;
+        ;
+        this._target.getObjectByName('helperTarget').visible = use;
     }
     useDefaultDirectionHelper(use) {
-        this._target.getObjectByName("helperDirection").visible =
-            use;
+        ;
+        this._target.getObjectByName('helperDirection').visible = use;
     }
     setMaxDistance(val) {
         this._maxDistance = val;
@@ -115,7 +116,7 @@ export default class TeleportVR {
                     }
                     else {
                         if (this._activeControllerKey === key) {
-                            this._activeControllerKey = "";
+                            this._activeControllerKey = '';
                             this.teleport();
                             this._target.rotation.y = 0;
                         }
@@ -132,8 +133,7 @@ export default class TeleportVR {
                 this._raycaster.ray.origin.y += 10;
                 var intersects = this._raycaster.intersectObjects(elevationsMeshList);
                 if (intersects.length > 0) {
-                    this._target.position.y =
-                        intersects[0].point.y - this._group.position.y;
+                    this._target.position.y = intersects[0].point.y - this._group.position.y;
                 }
             }
             this._vectorArray.v0.copy(this._target.position);

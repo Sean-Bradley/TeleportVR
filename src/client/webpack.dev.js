@@ -6,7 +6,7 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-source-map',
     devServer: {
-        https: true,
+        server: 'https',
         static: {
             directory: path.join(__dirname, '../../dist/client'),
         },

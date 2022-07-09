@@ -4,7 +4,7 @@
  * Copyright 2018-2021 Sean Bradley https://sbcode.net
  * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
  */
-import * as THREE from "three";
+import * as THREE from 'three';
 export default class TeleportVR {
     private _group;
     private _target;
