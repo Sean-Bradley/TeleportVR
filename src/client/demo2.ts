@@ -36,7 +36,7 @@ document.body.appendChild(renderer.domElement)
 document.body.appendChild(VRButton.createButton(renderer))
 
 const floor = new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(20, 20, 10, 10),
+    new THREE.PlaneGeometry(20, 20, 10, 10),
     new THREE.MeshBasicMaterial({
         color: 0x008800,
         wireframe: true,
@@ -48,7 +48,7 @@ scene.add(floor)
 collidableMeshList.push(floor)
 
 const cube1 = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(1, 2, 1),
+    new THREE.BoxGeometry(1, 2, 1),
     new THREE.MeshBasicMaterial({
         color: 0xff8800,
         wireframe: true,
@@ -61,7 +61,7 @@ scene.add(cube1)
 collidableMeshList.push(cube1)
 
 const cube2 = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(1, 2, 4, 8),
+    new THREE.CylinderGeometry(1, 2, 4, 8),
     new THREE.MeshBasicMaterial({
         color: 0x88ff00,
         wireframe: true,
@@ -74,7 +74,7 @@ scene.add(cube2)
 collidableMeshList.push(cube2)
 
 const cube3 = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(1, 4, 1),
+    new THREE.BoxGeometry(1, 4, 1),
     new THREE.MeshBasicMaterial({
         color: 0x88ff00,
         wireframe: true,
@@ -88,7 +88,7 @@ collidableMeshList.push(cube3)
 
 for (let i = 0; i < maxBullets; i++) {
     const b = new THREE.Mesh(
-        new THREE.CylinderBufferGeometry(0.025, 0.025, 1, 5),
+        new THREE.CylinderGeometry(0.025, 0.025, 1, 5),
         new THREE.MeshBasicMaterial({
             color: 0xff0000,
             wireframe: true,
@@ -114,7 +114,7 @@ function onWindowResize() {
 const teleportVR = new TeleportVR(scene, camera)
 
 const lefthand = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(0.05, 0.05, 0.4, 16, 1, true),
+    new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
     new THREE.MeshBasicMaterial({
         color: 0x00ff88,
         wireframe: true,
@@ -128,7 +128,7 @@ controllerGrip0.addEventListener('connected', (e: any) => {
 })
 
 const righthand = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(0.05, 0.05, 0.4, 16, 1, true),
+    new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
     new THREE.MeshBasicMaterial({
         color: 0x00ff88,
         wireframe: true,

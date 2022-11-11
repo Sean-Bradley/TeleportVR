@@ -22,13 +22,13 @@ export default class TeleportVR {
         scene.add(this._group);
         this._group.add(this._target);
         this._vectorArray = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 3, -1), new THREE.Vector3(2, 0, -2));
-        const _mesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, 0.01, 8), new THREE.MeshBasicMaterial({
+        const _mesh = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.01, 8), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
             wireframe: true,
         }));
         _mesh.name = 'helperTarget';
         this._target.add(_mesh);
-        const _mesh2 = new THREE.Mesh(new THREE.BoxBufferGeometry(0.1, 0.1, 2), new THREE.MeshBasicMaterial({
+        const _mesh2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 2), new THREE.MeshBasicMaterial({
             color: 0x0044ff,
             wireframe: true,
         }));
@@ -36,7 +36,7 @@ export default class TeleportVR {
         _mesh2.name = 'helperDirection';
         this._target.add(_mesh2);
         this._target.visible = false;
-        const _geometry = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false);
+        const _geometry = new THREE.TubeGeometry(this._vectorArray, 9, 0.1, 5, false);
         this._curve = new THREE.Mesh(_geometry, new THREE.MeshBasicMaterial({
             color: 0xff0000,
             wireframe: true,
@@ -143,7 +143,7 @@ export default class TeleportVR {
             midPoint.quaternion.copy(this._activeController.quaternion);
             midPoint.translateY(-3);
             this._vectorArray.v1.copy(midPoint.position);
-            const t = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false);
+            const t = new THREE.TubeGeometry(this._vectorArray, 9, 0.1, 5, false);
             this._curve.geometry.copy(t);
         }
     }

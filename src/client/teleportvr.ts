@@ -34,7 +34,7 @@ export default class TeleportVR {
         )
 
         const _mesh = new THREE.Mesh(
-            new THREE.CylinderBufferGeometry(1, 1, 0.01, 8),
+            new THREE.CylinderGeometry(1, 1, 0.01, 8),
             new THREE.MeshBasicMaterial({
                 color: 0x0044ff,
                 wireframe: true,
@@ -44,7 +44,7 @@ export default class TeleportVR {
         this._target.add(_mesh)
 
         const _mesh2 = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(0.1, 0.1, 2),
+            new THREE.BoxGeometry(0.1, 0.1, 2),
             new THREE.MeshBasicMaterial({
                 color: 0x0044ff,
                 wireframe: true,
@@ -55,7 +55,7 @@ export default class TeleportVR {
         this._target.add(_mesh2)
         this._target.visible = false
 
-        const _geometry = new THREE.TubeBufferGeometry(this._vectorArray, 9, 0.1, 5, false)
+        const _geometry = new THREE.TubeGeometry(this._vectorArray, 9, 0.1, 5, false)
         this._curve = new THREE.Mesh(
             _geometry,
             new THREE.MeshBasicMaterial({
@@ -176,7 +176,7 @@ export default class TeleportVR {
             midPoint.translateY(-3)
             this._vectorArray.v1.copy(midPoint.position)
 
-            const t = new THREE.TubeBufferGeometry(
+            const t = new THREE.TubeGeometry(
                 this._vectorArray,
                 9,
                 0.1,
