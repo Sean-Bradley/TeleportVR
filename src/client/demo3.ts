@@ -212,8 +212,7 @@ function render() {
                 if (b.userData.lifeTime > 0.025) {
                     let collisionDetected = false
                     let collisionPoint = new THREE.Vector3()
-                    const positions = (b.geometry as THREE.BufferGeometry).attributes.position
-                        .array as Array<number>
+                    const positions = b.geometry.attributes.position.array
                     for (let i = 0; i < positions.length; i += 3) {
                         const localVertex = new THREE.Vector3(
                             positions[i],

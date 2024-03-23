@@ -27,7 +27,7 @@ export default class Explosion {
         this.particles.position.z = position.z
 
         const positions = (this.particles.geometry as THREE.BufferGeometry).attributes.position
-            .array as Array<number>
+            .array
         for (let j = 0; j < this.particleCount * 3; j = j + 3) {
             let v = new THREE.Vector3(
                 Math.random() * 0.5 - 0.25,
@@ -38,7 +38,7 @@ export default class Explosion {
             positions[j + 1] = v.y
             positions[j + 2] = v.z
         }
-        ;(this.particles.geometry as THREE.BufferGeometry).attributes.position.needsUpdate = true
+        this.particles.geometry.attributes.position.needsUpdate = true
 
         this.particles.userData.explosionPower = 1.2
         this.particles.visible = true
@@ -46,8 +46,7 @@ export default class Explosion {
 
     public update() {
         if (!this.particles.visible) return
-        const positions = (this.particles.geometry as THREE.BufferGeometry).attributes.position
-            .array as Array<number>
+        const positions = this.particles.geometry.attributes.position.array
         for (let j = 0; j < this.particleCount * 3; j = j + 3) {
             const v = new THREE.Vector3(
                 positions[j],
