@@ -146,10 +146,10 @@ controllerGrip1.addEventListener('connected', (e: any) => {
 
 controllerGrip0.addEventListener('selectstart', () => {
     if (
-        teleportVR.gamePads[0].hapticActuators &&
-        teleportVR.gamePads[0].hapticActuators.length > 0
+        (teleportVR.gamePads[0] as any).hapticActuators &&
+        (teleportVR.gamePads[0] as any).hapticActuators.length > 0
     ) {
-        ;(teleportVR.gamePads[0].hapticActuators[0] as any).pulse(1.0, 5)
+        ;(teleportVR.gamePads[0] as any).hapticActuators[0].pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip0.getWorldPosition(bullets[bulletCounter].position)
@@ -169,10 +169,10 @@ controllerGrip0.addEventListener('selectstart', () => {
 
 controllerGrip1.addEventListener('selectstart', () => {
     if (
-        teleportVR.gamePads[1].hapticActuators &&
-        teleportVR.gamePads[1].hapticActuators.length > 0
+        (teleportVR.gamePads[1] as any).hapticActuators &&
+        (teleportVR.gamePads[1] as any).hapticActuators.length > 0
     ) {
-        ;(teleportVR.gamePads[1].hapticActuators[1] as any).pulse(1.0, 5)
+        ;(teleportVR.gamePads[1] as any).hapticActuators[0].pulse(1.0, 5)
     }
     bullets[bulletCounter].visible = false
     controllerGrip1.getWorldPosition(bullets[bulletCounter].position)
